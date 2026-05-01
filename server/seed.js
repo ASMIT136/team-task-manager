@@ -6,9 +6,11 @@ function seedDb() {
   const adminName = process.env.ADMIN_NAME || "Admin User";
   const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
   const adminPassword = process.env.ADMIN_PASSWORD || "Admin@123";
+  let changed = false;
 
-  if (!db.users.length) {
-    const admin = {
+  let admin = db.users.find((user) => user.email === adminEmail);
+  if (!admin) {
+    admin = {
       id: id("usr"),
       name: adminName,
       email: adminEmail,
@@ -16,7 +18,18 @@ function seedDb() {
       role: "Admin",
       createdAt: now()
     };
-    const member = {
+    db.users.push(admin);
+    changed = true;
+  } else {
+    admin.name = adminName;
+    admin.passwordHash = hashPassword(adminPassword);
+    admin.role = "Admin";
+    changed = true;
+  }
+
+  let member = db.users.find((user) => user.email === "member@example.com");
+  if (!member) {
+    member = {
       id: id("usr"),
       name: "Arjun Mehta",
       email: "member@example.com",
@@ -24,6 +37,11 @@ function seedDb() {
       role: "Member",
       createdAt: now()
     };
+    db.users.push(member);
+    changed = true;
+  }
+
+  if (!db.projects.length) {
     const project = {
       id: id("prj"),
       name: "Website Launch",
@@ -31,7 +49,6 @@ function seedDb() {
       ownerId: admin.id,
       createdAt: now()
     };
-    db.users.push(admin, member);
     db.projects.push(project);
     db.projectMembers.push({ projectId: project.id, userId: admin.id }, { projectId: project.id, userId: member.id });
     db.tasks.push(
@@ -62,6 +79,10 @@ function seedDb() {
         updatedAt: now()
       }
     );
+    changed = true;
+  }
+
+  if (changed) {
     writeDb(db);
     return { seeded: true, adminEmail };
   }
