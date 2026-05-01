@@ -1,0 +1,21 @@
+{
+  "name": "team-task-manager",
+  "version": "1.0.0",
+  "description": "Full-stack team task manager with projects, roles, task assignment, and progress dashboard.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js",
+    "seed": "node server/seed.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "task-manager",
+    "full-stack",
+    "railway"
+  ],
+  "author": "",
+  "license": "MIT"
+}
