@@ -32,9 +32,11 @@ npm run seed
 Then use:
 
 ```text
-Admin: admin@example.com / Admin@123
+Admin: admin@example.com / set with ADMIN_PASSWORD
 Member: member@example.com / Member@123
 ```
+
+For public deployments, set `ADMIN_PASSWORD` as an environment variable instead of sharing the admin password in the repository.
 
 ## Local Setup
 
@@ -90,10 +92,11 @@ npm.cmd start
 npm start
 ```
 
-4. Add this environment variable:
+4. Add these environment variables:
 
 ```text
 SESSION_SECRET=use-a-long-random-secret
+ADMIN_PASSWORD=use-a-private-admin-password
 ```
 
 5. Deploy and open the generated Railway URL.
@@ -114,4 +117,3 @@ DATA_DIR=/data
 - Live URL: add your Railway URL here
 - GitHub repo: add your repository URL here
 - Demo video: record login, project creation, task assignment, status update, and dashboard
-
