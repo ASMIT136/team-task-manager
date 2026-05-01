@@ -5,11 +5,14 @@ const { URL } = require("url");
 const createRouter = require("./router");
 const { readDb, writeDb, id, now, publicUser } = require("./db");
 const { hashPassword, verifyPassword, createSession, requireAuth, requireAdmin } = require("./auth");
+const seedDb = require("./seed");
 
 const PORT = process.env.PORT || 3000;
 const publicDir = path.join(__dirname, "..", "public");
 const router = createRouter();
 const validStatuses = ["Todo", "In Progress", "Review", "Done"];
+
+seedDb();
 
 function send(res, status, payload) {
   res.writeHead(status, { "Content-Type": "application/json" });
